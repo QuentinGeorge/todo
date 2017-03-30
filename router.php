@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require('configs/routes.php');
+$routes = require('configs/routes.php');
 if (empty($_SESSION['user'])) {
     $defaultRoute = $routes['get_login'];
 } else {
@@ -16,6 +16,7 @@ $r = $_REQUEST['r']??$routeSplited[2];
 if (!in_array($method . '/' . $a . '/' . $r, $routes)) {
     die('Ce que vous cherchez n’est pas ici');
 }
-$controllerFile = $r . 'Controller.php';
-require 'controllers/' . $controllerFile;
-$data = call_user_func($a);
+$controllerName = 'Controllers\\' . ucfirst($r);
+$controller = new $controllerName();
+
+$data = call_user_func([$controller, $a]);

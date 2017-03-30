@@ -1,25 +1,28 @@
 <?php
-function connectDB()
-{
-    $dbConfig = @parse_ini_file(DB_INI_FILE);
-    $dsn = sprintf(
-        'mysql:dbname=%s;host=%s',
-        $dbConfig['dbname'],
-        $dbConfig['host']
-    );
-    try {
+namespace Models;
 
-        return new PDO(
-            $dsn,
-            $dbConfig['username'],
-            $dbConfig['password'],
-            [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-            ]
+class Model {
+    public function connectDB() {
+        $dbConfig = @parse_ini_file(DB_INI_FILE);
+        $dsn = sprintf(
+            'mysql:dbname=%s;host=%s',
+            $dbConfig['dbname'],
+            $dbConfig['host']
         );
-    } catch (PDOException $e) {
+        try {
 
-        return false;
+            return new \PDO(
+                $dsn,
+                $dbConfig['username'],
+                $dbConfig['password'],
+                [
+                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                    \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                ]
+            );
+        } catch (\PDOException $e) {
+
+            return false;
+        }
     }
 }

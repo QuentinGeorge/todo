@@ -1,5 +1,5 @@
 <?php
-$routes = [
+return [
     'get_login' => 'GET/getLogin/auth',
     'post_login' => 'POST/postLogin/auth',
     'get_logout' => 'GET/getLogout/auth',
